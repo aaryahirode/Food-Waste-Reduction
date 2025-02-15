@@ -118,11 +118,11 @@ app.post("/login", async (req, res) => {
 app.get("/donor",(req,res)=>{
     res.render("donor.ejs");
   })
-  app.get("/donor-recentdonations",(req,res)=>{
-    res.render("donor-recentdonations.ejs");
+  app.get("/donor-donations",(req,res)=>{
+    res.render("donor-donations.ejs");
   })
-  app.get("/donorform",(req,res)=>{
-    res.render("donorform.ejs");
+  app.get("/donor-form",(req,res)=>{
+    res.render("donor-form.ejs");
   })
   app.post('/donate', upload.single('foodImage'), async (req, res) => {
     const foodName = req.body.foodName;
