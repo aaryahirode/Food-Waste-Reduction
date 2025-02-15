@@ -18,8 +18,8 @@ const port = 3000;
 const pool = new pg.Pool({
     user: "postgres",
     host: "localhost",
-    database: "fooddonationtest",
-    password: "Venom1719",
+    database: "food donation test",
+    password: "PostgreSQL",
     port: 5432,
 });
 const storage = multer.memoryStorage();
@@ -216,3 +216,12 @@ app.get("/recipient",(req,res)=>{
 app.get("/recipient-request",(req,res)=>{
     res.render("recipient-request.ejs");
 })
+app.get("/recipient-form", async (req, res) => {
+  try {
+      const result = await pool.query("SELECT * FROM donation_info");
+      res.render("recipient-form.ejs", {donations: result.rows});
+  } catch (error) {
+      console.error("Error fetching donations:", error);
+      res.status(500).send("Internal Server Error");
+  }
+});

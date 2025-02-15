@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Details</title>
+    <link rel="stylesheet" href="/styles/viewmore.css">
+</head>
+<body>
+
+    <!-- Google Translate Widget (Top Right Corner) -->
+    <div id="google_translate_widget"></div>
+
+    <!-- Main Content Box -->
+    <main class="container">
+        <h1><%= donation.food_name %></h1>
+
+        <div class="image-container">
+            <% if (donation.food_image) { %>
+                <img class="donation-img" src="data:image/jpeg;base64,<%= donation.food_image.toString('base64') %>" alt="<%= donation.food_name %>">
+            <% } else { %>
+                <p>No Image Available</p>
+            <% } %>
+        </div>
+
+        <div class="donation-details">
+            <p><b>Type:</b> <%= donation.food_type %></p>
+            <p><b>Category:</b> <%= donation.category %></p>
+            <p><b>Description:</b> <%= donation.food_description %></p>
+            <p><b>Quantity:</b> <%= donation.quantity %></p>
+            <p><b>Estimated Expiry Date:</b> <%= donation.expiry_date %></p>
+            <p><b>Location:</b> <%= donation.donor_location %></p>
+            <p><b>Contact:</b> <%= donation.contact_number %></p>
+        </div>
+
+        <form action="/accept-donation/<%= donation.id %>" method="POST">
+            <button type="submit" class="accept-btn">Accept Donation</button>
+        </form>
+
+        <a href="/recipient" class="back-btn">← Back to Listings</a>
+    </main>
+
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_widget');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>

@@ -1,16 +1,18 @@
 /* Background Styling */
+/* General Page Styling */
 body {
     font-family: Arial, sans-serif;
-    background: url('/images/donorform-background.jpg') no-repeat center center/cover !important;
+    background: url('/images/donorform-background.jpg') no-repeat center center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     backdrop-filter: blur(3px);
+    padding-top: 20px;
 }
 
-/* Animated Border for Form */
+/* Ensure the container stays within page limits without scrolling */
 .donation-container {
     background: rgba(255, 255, 255, 0.9);
     padding: 30px;
@@ -18,9 +20,20 @@ body {
     width: 80%;
     max-width: 900px;
     position: relative;
-    overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     animation: glowing-border 2s infinite alternate;
+    margin: 20px 0;
+}
+
+#google_translate_widget {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    background: white;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes glowing-border {
@@ -79,6 +92,7 @@ button {
     grid-column: span 2;
     font-size: 16px;
     transition: 0.3s ease;
+    margin-top: 10px;
 }
 
 button:hover {
@@ -120,3 +134,4 @@ button:disabled {
 .terms-container a:hover {
     text-decoration: underline;
 }
+
