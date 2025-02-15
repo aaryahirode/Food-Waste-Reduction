@@ -18,8 +18,8 @@ const port = 3000;
 const pool = new pg.Pool({
     user: "postgres",
     host: "localhost",
-    database: "fooddonationtest",
-    password: "Venom1719",
+    database: "food donation test",
+    password: "PostgreSQL",
     port: 5432,
 });
 const storage = multer.memoryStorage();
