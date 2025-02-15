@@ -1,8 +1,19 @@
-import express from "express"
-import ngrok from "ngrok"
-import pg from "pg"
+import express from "express";
+import ngrok from "ngrok";
+import pg from "pg";
+import multer from "multer";
 
-const app = express()
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const app = express();
+
+app.set('view engine', 'ejs0101[');
+app.set('views', path.join(__dirname, 'views'));
+
 const port = 3000;
 const pool = new pg.Pool({
     user: "postgres",
@@ -10,7 +21,10 @@ const pool = new pg.Pool({
     database: "fooddonationtest",
     password: "Venom1719",
     port: 5432,
-  });
+});
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -45,7 +59,7 @@ app.post("/signup", async (req, res) => {
     if (isRegistered.rows.length == 0) {
       await client.query("INSERT INTO user_info (name,email,role,password) VALUES ($1, $2, $3, $4)", [name, email, role, password]);
       res.render("login.ejs",{
-
+        
       });
     } else {
       res.render("login.ejs", {
@@ -81,10 +95,13 @@ app.post("/login", async (req, res) => {
     }
     if (isMatch) {
         if(user.role==="donor"){
-            res.render("donor.ejs");
+            res.render("donor.ejs",{
+                email:email
+            });
         }else{
-          const result = await pool.query("SELECT * FROM donation_info");
-          res.render("recipient.ejs", {donations: result.rows});
+          res.render("recipient.ejs", {
+            email:email
+        });
         }
     } else {
       res.render("login.ejs", { warned: "Email or password is incorrect." });
@@ -96,6 +113,46 @@ app.post("/login", async (req, res) => {
     client.release();
   }
 });
+
+//Donor route
+app.get("/donor",(req,res)=>{
+    res.render("donor.ejs");
+  })
+  app.get("/donor-donations",(req,res)=>{
+    res.render("donor-donations.ejs");
+  })
+  app.get("/donor-form",(req,res)=>{
+    res.render("donor-form.ejs");
+  })
+  app.post('/donate', upload.single('foodImage'), async (req, res) => {
+    const foodName = req.body.foodName;
+    const foodType = req.body.foodType;
+    const category = req.body.category;
+    const quantity = req.body.quantity;
+    const expiryDate = req.body.expiryDate;
+    const phone = req.body.phone;
+    const email = req.body.email;
+    const location = req.body.location;
+    const city = req.body.city;
+    const pincode = req.body.pincode;
+    const description = req.body.foodDescription;
+  
+    if (!req.file) {
+        return res.status(400).json({ success: false, message: 'Image is required' });
+    }
+    try {
+        const imageBuffer = req.file.buffer; // Convert image to binary
+        const result = await pool.query(
+            'INSERT INTO donation_info (food_image, food_name, food_type, category, quantity, expiry_date, contact_number, email, donor_location, city, pincode, status, food_description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)',
+            [imageBuffer, foodName, foodType, category, quantity, expiryDate, phone, email, location, city, pincode, "Pending", description]
+        );
+        // res.json({ success: true, message: 'Donation added successfully', donationId: result.rows[0].id });
+        res.render("donor.ejs");
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Error saving donation' });
+    }
+  });
 
 //Contact Us
 app.get("/contact",(req,res)=>{

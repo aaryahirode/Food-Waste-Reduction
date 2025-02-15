@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Food | Food Relief</title>
+    <link rel="stylesheet" href="styles/donor-form.css">
+</head>
+<body>
+    <div class="donation-container">
+        <div class="form-header">
+            <h1 class="header">Donate Food & Make a Difference</h1>
+            <p>Your small contribution can help feed the needy. Fill in the details below to donate food.</p>
+        </div>
+        <form action="/donate" method="POST" enctype="multipart/form-data">
+            <div class="form-grid">
+                <div class="input-group">
+                    <label for="foodImage">Upload Food Image</label>
+                    <input type="file" id="foodImage" name="foodImage" accept="image/*" required>
+                </div>
+                <div class="input-group">
+                    <label for="foodName">Food Name</label>
+                    <input type="text" id="foodName" name="foodName" placeholder="e.g., Rice, Vegetables" required>
+                </div>
+                <div class="input-group">
+                    <label for="foodType">Food Type</label>
+                    <select id="foodType" name="foodType" required>
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="veg">Vegetarian</option>
+                        <option value="non-veg">Non-Vegetarian</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="raw">Raw</option>
+                        <option value="cooked">Cooked</option>
+                        <option value="processed">Processed</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="quantity">Quantity (in kg)</label>
+                    <input type="number" id="quantity" name="quantity" min="1" step="0.1" placeholder="e.g., 5" required>
+                </div>
+                <div class="input-group">
+                    <label for="expiryDate">Best Before Date</label>
+                    <input type="date" id="expiryDate" name="expiryDate" required>
+                </div>
+                <div class="input-group">
+                    <label for="phone">Contact Number</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Enter 10-digit number" required>
+                </div>
+                <div class="input-group">
+                    <label for="location">Pickup Location</label>
+                    <input type="text" id="location" name="location" placeholder="e.g., Street, Landmark" required>
+                </div>
+                <div class="input-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city" placeholder="Enter city" required>
+                </div>
+                <div class="input-group">
+                    <label for="pincode">Pincode</label>
+                    <input type="text" id="pincode" name="pincode" pattern="[0-9]{6}" placeholder="Enter 6-digit pincode" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="input-group">
+                    <label for="foodDescription">Food Description</label>
+                    <textarea id="foodDescription" name="foodDescription" rows="3" placeholder="Brief description of the food" required></textarea>
+                </div>
+                <div class="terms-container">
+                    <input type="checkbox" id="termsCheckbox">
+                    <label for="termsCheckbox">I agree to the <a href="#">terms and conditions</a></label>
+                </div>
+                <button type="submit" id="donateButton" class="donate-btn" disabled>Donate Now</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById("termsCheckbox").addEventListener("change", function() {
+            document.getElementById("donateButton").disabled = !this.checked;
+        });
+    </script>
+</body>
+</html>
