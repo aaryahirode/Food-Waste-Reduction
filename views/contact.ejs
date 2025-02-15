@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="/styles/contact.css">
+    <link rel="stylesheet" href="/chatbot/chatbot.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="curve curve-top"></div>
+        <div class="nav-content">
+            <div class="logo">MealMatch</div>
+            <ul class="nav-links">
+                <li><a href="/">HOME</a></li>
+                <li><a href="/about">ABOUT US</a></li>
+                <li><a href="/contact" class="active">CONTACT US</a></li>
+                <li><a href="/login" class="donate-btn">LOGIN/SIGNUP</a></li>
+            </ul>
+        </div>
+        <div class="curve curve-bottom"></div>
+    </nav>
+
+    <!-- Contact Section -->
+    <section class="contact-container">
+        <h1>Get in Touch</h1>
+        <p>We’d love to hear from you! Reach out for any inquiries, support, or partnership opportunities.</p>
+
+        <div class="contact-content">
+            <!-- Left Side: Contact Info -->
+            <div class="contact-info">
+                <div class="info-box">
+                    <i class="fa fa-envelope"></i>
+                    <p>Email: <a href="mailto:mealmatch@gmail.com">mealmatch@gmail.com</a></p>
+                </div>
+                <div class="info-box">
+                    <i class="fa fa-phone"></i>
+                    <p>Phone: <a href="tel:+91-9876543210">+91-9876543210</a></p>
+                </div>
+                <div class="info-box">
+                    <i class="fa fa-map-marker"></i>
+                    <p>Address: Mumbai </p>
+                </div>
+            </div>
+
+            <!-- Right Side: Contact Form -->
+            <div class="contact-form">
+                <% if(locals.submitted){ %>
+                    <h2>We will try to provide a response as soon as possible.</h2>
+                    <h3>Submit another message.</h3>
+                <% }else{ %>
+                    <h2>Send us a Message</h2>
+                <% } %>
+                
+                <form action="/contactus" method="post">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Write your message..." required></textarea>
+
+                    <button type="submit" class="contact-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot Section -->
+    <div class="chatbot-container">
+        <h2>Chatbot Support</h2>
+        <div id="chat" class="chat">
+            <div id="messages" class="messages"></div>
+            <input id="input" type="text" placeholder="Ask me something..." autocomplete="off" />
+        </div>
+    </div>
+
+    <!-- Scripts for Chatbot -->
+    <script src="/chatbot/chatbot.js"></script>
+    <script src="/chatbot/constants.js"></script>
+    <script src="/chatbot/speech.js"></script>
+
+</body>
+</html>
