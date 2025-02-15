@@ -7,6 +7,13 @@ body {
     color: #333;
     text-align: center;
 }
+/* google translate */
+#google_translate_widget {
+    margin: 20px;
+}
+
+/* Double-Curved Navigation Bar */
+
 /* Curvy Navigation Bar */
 nav {
     background: linear-gradient(to right, #4CAF50, #81C784);
@@ -55,7 +62,7 @@ nav a:hover {
 .logo {
     font-size: 1.8rem;
     font-weight: 600;
-    color:white;
+    padding-left: 80px;
 }
 
 .nav-links {

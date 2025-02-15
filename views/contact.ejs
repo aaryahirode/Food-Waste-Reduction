@@ -24,7 +24,8 @@
                 <li><a href="/login" class="donate-btn">LOGIN/SIGNUP</a></li>
             </ul>
         </div>
-        <div class="curve curve-bottom"></div>
+        <div class="curve curve-bottom"></div>      
+        <div id="google_translate_widget"></div>
     </nav>
 
     <!-- Contact Section -->
@@ -129,6 +130,17 @@
     <script src="/chatbot/chatbot.js"></script>
     <script src="/chatbot/constants.js"></script>
     <script src="/chatbot/speech.js"></script>
-
+<!-- Google Translate Script -->
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: 'en' },
+        'google_translate_widget'
+      );
+    }
+  </script>
+  <script type="text/javascript" 
+    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+  </script>
 </body>
 </html>
