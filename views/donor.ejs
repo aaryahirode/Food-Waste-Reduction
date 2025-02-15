@@ -11,7 +11,7 @@
         <div class="nav-content">
             <div class="logo">MealMatch</div>
             <div class="profile-menu">
-                <div class="profile-icon"><a href="#">👤</a></div>
+                <div class="profile-icon"><a href="/donor-profile?id=<%= id %>">👤</a></div>
                 <div class="logout"><a href="#">Log Out</a></div>  
             </div>
         </div>
@@ -21,9 +21,8 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <ul>
-                <li><a href="/donor">Home</a></li>
-                <li><a href="/donor-donations">Donations</a></li>
-                <li><a href="">Tracking</a></li>
+                <li><a href="/donor?id=<%= id %>">Home</a></li>
+                <li><a href="/donor-donations?id=<%=id %>">Donations</a></li>
             </ul>
         </div>
 
@@ -32,7 +31,7 @@
             <div class="home-section">
                 <h2 class="tc">Welcome to MealMatch</h2>
                 <p>Make a difference by donating surplus food to those in need.</p>
-                <a href="/donor-form" class="action-button">Post Surplus Food</a>
+                <a href="/donor-form?id=<%= id %>" class="action-button">Post Surplus Food</a>
             </div>
         </div>
     </div>

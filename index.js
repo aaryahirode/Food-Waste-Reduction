@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
-app.set('view engine', 'ejs0101[');
+app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 const port = 3000;
@@ -58,9 +58,7 @@ app.post("/signup", async (req, res) => {
     let isRegistered = await client.query("SELECT email FROM user_info WHERE email=$1", [email]);
     if (isRegistered.rows.length == 0) {
       await client.query("INSERT INTO user_info (name,email,role,password) VALUES ($1, $2, $3, $4)", [name, email, role, password]);
-      res.render("login.ejs",{
-        
-      });
+      res.render("login.ejs");
     } else {
       res.render("login.ejs", {
         warned: "Account already exists. Please login.",
@@ -93,14 +91,16 @@ app.post("/login", async (req, res) => {
     if (password == user.password) {
       isMatch = true;
     }
+    let idResult = await client.query("SELECT id FROM user_info WHERE email=$1", [email]);
+    let id = idResult.rows[0].id;
     if (isMatch) {
-        if(user.role==="donor"){
+        if(user.role==="Donor"){
             res.render("donor.ejs",{
-                email:email
+                id:id
             });
         }else{
           res.render("recipient.ejs", {
-            email:email
+            id:id
         });
         }
     } else {
@@ -116,11 +116,35 @@ app.post("/login", async (req, res) => {
 
 //Donor route
 app.get("/donor",(req,res)=>{
-    res.render("donor.ejs");
+    const id = req.query.id;
+    res.render("donor.ejs",{
+        id:id
+    });
   })
-  app.get("/donorform",(req,res)=>{
-    res.render("donorform.ejs");
+  app.get("/donor-donations",(req,res)=>{
+    const id = req.query.id;
+    res.render("donor-donations.ejs",{
+        id:id
+    });
   })
+  app.get("/donor-form",(req,res)=>{
+    const id = req.query.id;
+    res.render("donor-form.ejs",{
+        id:id
+    });
+  })
+app.get("/donor-profile",async(req,res)=>{
+    const id = req.query.id;
+    const client = await pool.connect();
+    const result = await client.query("SELECT * FROM user_info WHERE id=$1", [id]);
+    client.release();
+    const donorData = result.rows[0];
+    res.render("donor-profile",{
+        id:id,
+        data:donorData
+    });
+})
+
   app.post('/donate', upload.single('foodImage'), async (req, res) => {
     const foodName = req.body.foodName;
     const foodType = req.body.foodType;
@@ -133,7 +157,6 @@ app.get("/donor",(req,res)=>{
     const city = req.body.city;
     const pincode = req.body.pincode;
     const description = req.body.foodDescription;
-  
     if (!req.file) {
         return res.status(400).json({ success: false, message: 'Image is required' });
     }
