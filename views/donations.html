@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donations | MealMatch</title>
+    <link rel="stylesheet" href="../public/styles/donations.css">
+    
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">MealMatch</div>
+            <div class="profile-menu">
+                <div class="profile-icon"><a href="#">👤</a></div>
+                <div class ='logout'><a href="#">Log Out</a></div> 
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="../views/donor_home.html">Home</a></li>
+                <li><a href="../views/donations.html">Donations</a></li>
+                <li><a href="#">Tracking</a></li>
+            </ul>
+        </div>
+        <div class="donations-container">
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('pending')">Pending</div>
+                <div class="tab" onclick="showTab('delivered')">Delivered</div>
+            </div>
+            <div id="pending" class="donation-box">
+                <img src="donation1.jpg" alt="Donation Item">
+                <div class="donation-details">
+                    <h3>Fresh Fruits and Vegetables</h3>
+                    <p>Donated by: John Doe</p>
+                    <p>Location: Downtown Food Center</p>
+                </div>
+                <div class="status-dot pending"></div>
+            </div>
+            <div id="delivered" class="donation-box" style="display: none;">
+                <img src="donation2.jpg" alt="Donation Item">
+                <div class="donation-details">
+                    <h3>Packaged Meals</h3>
+                    <p>Donated by: Sarah Smith</p>
+                    <p>Location: Community Kitchen</p>
+                </div>
+                <div class="status-dot delivered"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showTab(status) {
+            document.getElementById('pending').style.display = status === 'pending' ? 'flex' : 'none';
+            document.getElementById('delivered').style.display = status === 'delivered' ? 'flex' : 'none';
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelector(`.tab[onclick="showTab('${status}')"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>
