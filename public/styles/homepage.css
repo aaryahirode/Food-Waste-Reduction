@@ -1,0 +1,624 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+/* Double-Curved Navigation Bar */
+
+/* Curvy Navigation Bar */
+nav {
+    background: linear-gradient(to right, #4CAF50, #81C784);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
+    border-radius: 0 0 50% 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+nav a:hover {
+            color: #FFEB3B; /* A bright color on hover */
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+        
+ nav:before {
+             content: '';
+                 position: absolute;
+                    top: -50px; /* Adjust for the curve height */
+                    left: 0;
+                    right: 0;
+                    height: 100px; /* Height of the curve */
+                    background: #28a745; /* Same color as nav background */
+                    border-radius: 50%; /* Creates a curve */
+                    z-index: 0; /* Place behind the content */
+                }
+                .nav-content {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 10px 20px;
+                    position: relative; /* Position for stacking context */
+                    z-index: 1; /* Place on top of the curve */
+                }
+
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    padding: 15px 0;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    padding: 10px 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+    color: #ffcc00;
+}
+
+.donate-btn {
+    background: #ffcc00;
+    color: black;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+.donate-btn:hover {
+    background: white;
+    color: black;
+}
+
+/* Hero Section */
+.hero {
+    width: 104.30%;
+    height: 100vh;
+    background: url('/images/fd.jpg') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding-top: 100px;
+    margin:-63px;
+}
+.hero-content{
+    padding-right:240px;
+    margin:10px;
+    padding-bottom:280px;
+    margin-left:300px;
+    margin-bottom:-45px;
+}
+
+.hero-content h1 {
+    font-size: 2.8rem;
+    font-weight: 600;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin : 10px;
+    padding: 20px;
+}
+
+.btn-group {
+    margin-top: 20px;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    border-radius: 30px;
+    margin: 10px;
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-primary {
+    background: #ffcc00;
+    color: black;
+}
+
+.btn-secondary {
+    background: white;
+    color: black;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+/* General Section Styles */
+.section {
+    padding: 60px 20px;
+    text-align: center;
+    background: #f7f7f7;
+}
+/* Food Waste Management Section - Creative Styling */
+#food-waste-management {
+    position: relative;
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #f5f5f5 50%, #fff 50%);
+    text-align: center;
+}
+
+.fw-content {
+    background: #ffffff;
+    padding: 40px;
+    max-width: 1100px;
+    margin: auto;
+    border-radius: 50px 0 50px 0; /* Unique Curve Effect */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    border-left: 5px solid #4caf50;
+    border-right: 5px solid #4caf50;
+}
+
+#food-waste-management h2 {
+    font-size: 30px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+}
+
+#food-waste-management blockquote {
+    font-style: italic;
+    font-size: 18px;
+    background: #9fe8a2;
+    color: #000;
+    padding: 10px;
+    border-radius: 8px;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+#food-waste-management p {
+    font-size: 18px;
+    color: #444;
+    line-height: 1.6;
+}
+
+.fw-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.fw-list li {
+    background: rgba(255, 255, 255, 0.2);
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+.food-facts {
+    text-align: center;
+    padding: 30px 20px;
+  }
+  .section-title {
+    background-color: #7c287d;
+    color: white;
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+  .section-subtitle {
+    font-size: 55px;
+    font-weight: bold;
+    margin-top: 4px;
+  }
+  .section-description {
+    max-width: 700px;
+    margin: -66px auto 30px;
+    color: #555;
+  }
+  .fact-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .fact-box {
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .fact-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  .fact-icon {
+    width: 50px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  .fact-box1 {
+    border: 2px solid #5bc27c;
+  }
+  .fact-box1:hover {
+    border-color: #4aa76b;
+  }
+  .fact-box2 {
+    border: 2px solid #3b82f6;
+  }
+  .fact-box2:hover {
+    border-color: #2563eb;
+  }
+  .fact-box3 {
+    border: 2px solid #ef4444;
+  }
+  .fact-box3:hover {
+    border-color: #dc2626;
+  }
+/* Section Styling */
+#how-it-works {
+    text-align: center;
+    padding: 20px 20px;
+    padding-bottom: 40px;
+    background: #f9f9f9;
+}
+
+#how-it-works h2 {
+    font-size: 45px;
+    color: #222;
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+/* Steps Container */
+.steps-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Step Box */
+.step {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    border-top: 5px solid transparent;
+}
+
+/* Text Always Visible */
+.step h3,
+.step p {
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Hover Effect: Green Top Border */
+.step:hover {
+    border-top: 5px solid #28a745;
+    box-shadow: 0px 8px 20px rgba(40, 167, 69, 0.4);
+    transform: scale(1.05);
+}
+
+.step:hover h3,
+.step:hover p {
+    color: #222;
+}
+
+/* Step Icons */
+.step img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Click Animation */
+.step:active {
+    animation: pop 0.3s ease-in-out;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1.05);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1.05);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .steps-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .step {
+        width: 90%;
+        max-width: 300px;
+    }
+}
+
+
+
+/* Statistics Section */
+.stats-section {
+    background: url('') no-repeat center center/cover;
+    color: white;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.stat-box {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px;
+    min-width: 180px;
+}
+
+/* Partners Section */
+.partners-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.partners-container img {
+    width: 120px;
+    filter: grayscale(80%);
+    transition: 0.3s;
+}
+
+.partners-container img:hover {
+    filter: grayscale(0);
+}
+
+/* Testimonials */
+.success-stories {
+    text-align: center;
+    padding: 20px 20px;
+    padding-bottom: 40px;
+    background: url('/images/food.png') center/cover no-repeat;
+    position: relative;
+  }
+  .success-stories::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Adjust opacity here */
+  }
+  .st {
+    color: rgb(0, 0, 0);
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-size: 47px;
+  }
+  .testimonials {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .testimonial-box {
+    background: white;
+    padding: 20px;
+    width: 300px;
+    text-align: left;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  .testimonial-text {
+    color: #555;
+    font-size: 16px;
+  }
+  .testimonial-name {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  .testimonial-role {
+    color: #2d6a4f;
+    font-size: 14px;
+  }
+  .quote-icon {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: #2d6a4f;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+/* Footer */
+.custom-footer {
+    background: #1E3A2B; /* Dark Green */
+    color: #F5F5DC; /* Beige-like soft white */
+    padding: 25px 0px 2px;
+    text-align: center;
+    position: relative;
+}
+
+/* Footer Container */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    gap: 40px; /* Space between the sections */
+}
+
+/* Newsletter Subscription */
+.footer-newsletter {
+    flex: 1;
+    text-align: left;
+}
+
+.footer-newsletter h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.newsletter-box {
+    display: flex;
+    align-items: center;
+    border: 2px solid #F5F5DC;
+    padding: 5px 10px;
+    border-radius: 30px;
+    max-width: 300px;
+    margin-top: 8px;
+}
+
+.newsletter-box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #F5F5DC;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.newsletter-box button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.newsletter-box img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Quick Links */
+.footer-links {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: center; /* Centering content */
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    margin: 6px 0;
+}
+
+.footer-links ul li a {
+    color: #F5F5DC;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.footer-links ul li a:hover {
+    color: #A5D6A7;
+}
+
+/* Handshake Icon */
+.footer-icon {
+    width: 45px;
+    height: 45px;
+    filter: invert(90%);
+}
+
+/* Social Media */
+.footer-social {
+    flex: 1;
+    text-align: right;
+}
+
+.footer-social h3 {
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.social-icons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.social-icons img {
+    width: 25px;
+    height: 25px;
+    transition: transform 0.3s;
+}
+
+.social-icons a:hover img {
+    transform: scale(1.1);
+}
+
+/* Copyright Section */
+.footer-bottom {
+    padding: 15px;
+    font-size: 0.8rem;
+    background: #14251F;
+    border-radius: 30px 30px 0 0;
+    margin-top: 20px;
+    border-top:1px solid white;
+}
