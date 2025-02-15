@@ -29,15 +29,23 @@
                 <div class="tab active" onclick="showTab('pending')">Pending</div>
                 <div class="tab" onclick="showTab('delivered')">Delivered</div>
             </div>
-            <div id="pending" class="donation-box">
-                <img src="donation1.jpg" alt="Donation Item">
+            <div id="pending" class="donation-box"></div>
+            <% datas.forEach((data)=>{ %>
+                <% if (data.food_image) { %>
+                    <img class="donation-img" src="data:image/jpeg;base64,<%= data.food_image.toString('base64') %>" alt="<%= data.food_name %>">
+                <% } else { %>
+                    <p>No Image Available</p>
+                <% } %>
                 <div class="donation-details">
-                    <h3>Fresh Fruits and Vegetables</h3>
-                    <p>Donated by: John Doe</p>
-                    <p>Location: Downtown Food Center</p>
+                    <h3><%= data.food_name %></h3>
+                    <p>Donated by: <%=user%></p>
+                    <p>Location: <%= data.donor_location%></p>
                 </div>
                 <div class="status-dot pending"></div>
             </div>
+            <%}) %>
+
+            
             <div id="delivered" class="donation-box" style="display: none;">
                 <img src="donation2.jpg" alt="Donation Item">
                 <div class="donation-details">
