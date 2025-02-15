@@ -170,7 +170,7 @@ label {
 }
 
 /* Style for form inputs */
-input[type="text"], input[type="email"], textarea {
+input[type="text"], textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
