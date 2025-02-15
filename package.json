@@ -1,0 +1,27 @@
+{
+  "name": "vesit-food-donation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VESHackIT/VESHackIT_Code-Play_Aarya-Hirode_SW-05.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VESHackIT/VESHackIT_Code-Play_Aarya-Hirode_SW-05/issues"
+  },
+  "homepage": "https://github.com/VESHackIT/VESHackIT_Code-Play_Aarya-Hirode_SW-05#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.1",
+    "ngrok": "^5.0.0-beta.2",
+    "pg": "^8.13.3"
+  }
+}
