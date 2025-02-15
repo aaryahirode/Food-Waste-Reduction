@@ -18,8 +18,8 @@ const port = 3000;
 const pool = new pg.Pool({
     user: "postgres",
     host: "localhost",
-    database: "food donation test",
-    password: "PostgreSQL",
+    database: "fooddonationtest",
+    password: "Venom1719",
     port: 5432,
 });
 const storage = multer.memoryStorage();
@@ -121,10 +121,18 @@ app.get("/donor",(req,res)=>{
         id:id
     });
   })
-  app.get("/donor-donations",(req,res)=>{
+  app.get("/donor-donations",async(req,res)=>{
     const id = req.query.id;
+    const client = await pool.connect();
+    const userResult = await client.query("SELECT * FROM user_info WHERE id=$1", [id]);
+    const email = userResult.rows[0].email;
+    const name = userResult.rows[0].name;
+    const donationResult = await client.query("SELECT * FROM donation_info WHERE email=$1",[email]);
+    client.release();
     res.render("donor-donations.ejs",{
-        id:id
+        id:id,
+        datas:donationResult.rows,
+        name:name
     });
   })
   app.get("/donor-form",(req,res)=>{
@@ -173,6 +181,7 @@ app.get("/donor-profile",async(req,res)=>{
         res.status(500).json({ success: false, message: 'Error saving donation' });
     }
   });
+
 //About Us
 app.get("/about",(req,res)=>{
     res.render("about-us.ejs") 
@@ -198,3 +207,12 @@ app.post("/contactus",async(req,res)=>{
       })
     }
   })
+
+
+  // Recipient
+app.get("/recipient",(req,res)=>{
+    res.render("recipient.ejs");
+})
+app.get("/recipient-request",(req,res)=>{
+    res.render("recipient-request.ejs");
+})
