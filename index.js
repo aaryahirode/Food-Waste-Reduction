@@ -18,8 +18,8 @@ const port = 3000;
 const pool = new pg.Pool({
     user: "postgres",
     host: "localhost",
-    database: "fooddonationtest",
-    password: "Venom1719",
+    database: "food donation test",
+    password: "PostgreSQL",
     port: 5432,
 });
 const storage = multer.memoryStorage();
@@ -173,7 +173,10 @@ app.get("/donor-profile",async(req,res)=>{
         res.status(500).json({ success: false, message: 'Error saving donation' });
     }
   });
-
+//About Us
+app.get("/about",(req,res)=>{
+    res.render("about-us.ejs") 
+  })
 //Contact Us
 app.get("/contact",(req,res)=>{
     res.render("contact.ejs");

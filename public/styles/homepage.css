@@ -6,6 +6,11 @@ body, html {
     scroll-behavior: smooth;
 }
 
+/* google translate */
+#google_translate_widget {
+    margin: 20px;
+}
+
 /* Double-Curved Navigation Bar */
 
 /* Curvy Navigation Bar */
@@ -56,6 +61,7 @@ nav a:hover {
 .logo {
     font-size: 1.8rem;
     font-weight: 600;
+    padding-left: 80px;
 }
 
 .nav-links {
