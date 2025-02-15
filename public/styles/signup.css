@@ -1,0 +1,282 @@
+/* Google Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Reset and Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #6aaad8, #ffffff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 0 10px;
+    overflow: hidden;
+}
+
+/* Glassmorphic Login/Sign-up Container */
+.login-container, .signup-container {
+    display: flex;
+    width: 800px; /* Increased width of the container */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    animation: fadeIn 1s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+    height: auto;
+    margin: 10px 0;
+}
+
+
+/* Left Side: Illustration */
+.login-illustration, .signup-illustration {
+    width: 50%;
+    background: linear-gradient(135deg, #e3f2fd, #f8bbd0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: floatUp 3s infinite ease-in-out alternate;
+}
+
+/* Right Side: Form Card */
+.login-card, .signup-card {
+    width: 50%;
+    padding: 30px; /* Reduced padding */
+    text-align: left;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 0 20px 20px 0;
+}
+
+/* Header */
+.login-card h2, .signup-card h2 {
+    color: #333;
+    font-size: 2rem; /* Slightly reduced font size */
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* Input Group */
+.input-group {
+    position: relative;
+    margin-bottom: 15px; /* Reduced margin */
+}
+
+.input-group label {
+    font-size: 13px; /* Slightly smaller label font */
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Input Fields */
+.input-group input {
+    width: 100%;
+    padding: 12px 40px; /* Reduced padding */
+    border: none;
+    border-radius: 12px;
+    font-size: 15px; /* Slightly reduced font size */
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.05),
+                inset -5px -5px 10px rgba(255, 255, 255, 0.3);
+    outline: none;
+    color: #333;
+    transition: 0.3s;
+}
+
+.input-group input::placeholder {
+    color: rgba(51, 51, 51, 0.5);
+}
+
+.input-group input:focus {
+    border: 1px solid #007bff;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
+}
+
+/* Password Input Group */
+.password-group {
+    position: relative;
+}
+
+/* Style for Password Input */
+.password-group input {
+    padding-right: 45px; /* Space for the eye icon */
+}
+
+/* Visibility Toggle (Eye Icon) */
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 70%;
+    transform: translateY(-50%);
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.toggle-password:hover {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+/* Checkbox Group (Role Selection) */
+.checkbox-group {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+/* Label Styling for Radio Buttons */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+    margin-right: 20px; /* Space between the radio buttons */
+}
+
+/* Optional: Style for the "Select Role" text */
+.checkbox-group p {
+    font-size: 16px;
+    margin-right: 15px; /* Space between the text and the radio buttons */
+    color: #333;
+    font-weight: bold;
+}
+
+/* Spacing between the radio button and label */
+.checkbox-label input {
+    margin-right: 10px; /* Space between radio button and text */
+}
+
+
+/* Select Role Checkbox (Aligned) */
+.select-role-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.select-role-group input {
+    margin-right: 10px;
+}
+
+.select-role-group label {
+    font-size: 13px;
+    color: #555;
+}
+
+/* Neumorphic Buttons */
+.signup-btn, .login-btn, .create-account {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px; /* Reduced font size */
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.signup-btn {
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: white;
+    border: none;
+    box-shadow: 5px 5px 15px rgba(0, 123, 255, 0.3),
+                -5px -5px 15px rgba(255, 255, 255, 0.3);
+}
+
+.signup-btn:hover {
+    background: linear-gradient(135deg, #0056b3, #008bff);
+    transform: translateY(-3px);
+}
+
+.create-account {
+    background: rgba(255, 255, 255, 0.2);
+    color: #333;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.create-account:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: translateY(-3px);
+}
+
+/* Social Login */
+.social-login, .social-signup {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-login a, .social-signup a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    font-size: 20px;
+    color: #555;
+    transition: 0.3s;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.social-login a:hover, .social-signup a:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(10px);
+    }
+    to {
+        transform: translateY(-10px);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-container, .signup-container {
+        flex-direction: column;
+        width: 90%; /* Reduced width for small screens */
+    }
+
+    .login-illustration, .signup-illustration {
+        display: none;
+    }
+
+    .login-card, .signup-card {
+        width: 100%;
+        text-align: center;
+        padding: 30px; /* Adjusted padding for mobile */
+    }
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles/login.css">
+</head>
+<body>
+
+    <div class="login-main">
+        <div class="login">
+            <div class="login-container">
+                <div class="login-card">
+                    <% if(locals.warned){  %>
+                        <h2><%= warned %></h2>
+                    <% } else{  %>
+                        <h2>Welcome Back</h2>
+                    <% } %>
+                    <form action="/login" method="POST">
+                        <div class="input-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="input-group password-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required>
+                            <span class="toggle-password" onclick="togglePassword()">👁</span>
+                        </div>
+                        
+                        <!-- Label for Role Selection
+                        <div class="role-selection">
+                            <label class="role-label">Select Your Role</label>
+                            <label>
+                                <input type="radio" name="role" value="donor" required>
+                                Donor
+                            </label>
+                            <label>
+                                <input type="radio" name="role" value="recipient" required>
+                                Recipient
+                            </label>
+                        </div> -->
+
+                        <button type="submit" class="login-btn">Log In</button>
+                    </form>
+                    <p class="signup-link">Don't have an account? <a href="/signup">Sign up</a></p>
+                </div>
+                <div class="food-img">
+                    <img src="images/login-img.png" alt="food grphic" >
+                </div>
+            </div>
+            
+            <script>
+                function togglePassword() {
+                    const passwordField = document.getElementById("password");
+                    if (passwordField.type === "password") {
+                        passwordField.type = "text";
+                    } else {
+                        passwordField.type = "password";
+                    }
+                }
+            </script>
+
+        </div>
+    </div>
+    
+</body>
+</html>
