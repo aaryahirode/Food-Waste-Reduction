@@ -118,9 +118,6 @@ app.post("/login", async (req, res) => {
 app.get("/donor",(req,res)=>{
     res.render("donor.ejs");
   })
-  app.get("/donor-recentdonations",(req,res)=>{
-    res.render("donor-recentdonations.ejs");
-  })
   app.get("/donorform",(req,res)=>{
     res.render("donorform.ejs");
   })
