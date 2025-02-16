@@ -13,6 +13,7 @@
             <div class="profile-menu">
                 <div class="profile-icon"><a href="#">👤</a></div>
                 <div class="logout"><a href="#">Log Out</a></div>  
+                <div id="google_translate_widget"></div>
             </div>
         </div>
     </nav>
@@ -32,9 +33,21 @@
             <div class="home-section">
                 <h2 class="tc">Welcome to MealMatch</h2>
                 <p>Access nutritious meals and support sustainability.</p>
-                <a href="#" class="action-button">Explore Donors</a>
+                <a href="/recipient-form" class="action-button">Explore Donors</a>
             </div>
         </div>
     </div>
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            { pageLanguage: 'en' },
+            'google_translate_widget'
+        );
+        }
+    </script>
+    <script type="text/javascript" 
+        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script>
 </body>
 </html>

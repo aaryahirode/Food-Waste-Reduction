@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Food Donations</title>
+    
+    <!-- OpenStreetMap (Leaflet) CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles/recipient-form.css">
+</head>
+
+<body>
+    <div id="google_translate_widget"></div>
+    
+    <main class="container">
+        <h1>Find Free Meals Nearby!!</h1>
+        
+        <!-- Location Input Section -->
+        <div class="location-container">
+            <button id="getLocationBtn">Use Current Location</button>
+            <input type="text" id="addressInput" placeholder="Enter your city name">
+            <button id="showOnMapBtn">Search</button>
+        </div>
+
+        <!-- Map Display -->
+        <div id="map"></div>
+
+        <!-- Food Donations Listings -->
+        <h2>Available Donations</h2>
+        <div class="donation-list">
+            <% if(donations.length > 0) { %>
+                <% donations.forEach(donation => { %>
+                    <% if(donation.status === "pending") { %> <!-- Only show pending donations -->
+                        <div class="donation-item" data-donor-location="<%= donation.donor_location %>">
+                            <h3><%= donation.food_name %></h3>
+                            <p><b>Type:</b> <%= donation.food_type %></p>
+                            <p><b>Category:</b> <%= donation.category %></p>
+                            <p><b>Location:</b> <%= donation.donor_location %></p>
+                            <p><b>Contact:</b> <%= donation.contact_number %></p>
+                            <a href="/viewmore/<%= donation.id %>">
+                                <button class="accept-btn">View More</button>
+                            </a>                                
+                        </div>
+                    <% } %>
+                <% }); %>
+            <% } else { %>
+                <p>No available donations at the moment.</p>
+            <% } %>
+        </div>
+    </main>
+
+    <!-- OpenStreetMap (Leaflet) JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        let map = L.map('map').setView([20.5937, 78.9629], 5); // Default: India
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        let marker;
+
+        // Get recipient location from GPS
+        async function getUserLocation() {
+            if (!navigator.geolocation) {
+                alert("Geolocation is not supported by this browser.");
+                return;
+            }
+            try {
+                const position = await new Promise((resolve, reject) => {
+                    navigator.geolocation.getCurrentPosition(resolve, reject);
+                });
+
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                console.log(`Recipient Location (Current GPS): ${lat}, ${lon}`);
+
+                updateMap(lat, lon);
+                filterDonationsByDistance(lat, lon);
+            } catch (error) {
+                alert("Geolocation permission denied. Please enter a city manually.");
+            }
+        }
+
+        // Get recipient location from city input
+        async function showAddressOnMap() {
+            const addressInput = document.getElementById("addressInput");
+            const city = addressInput.value.trim();
+            if (!city) {
+                alert("Please enter a valid city name.");
+                return;
+            }
+
+            const recipientLatLon = await getCoordinatesByCity(city);
+            if (!recipientLatLon) return;
+
+            console.log(`Recipient Location (Entered City): ${recipientLatLon.lat}, ${recipientLatLon.lon}`);
+
+            updateMap(recipientLatLon.lat, recipientLatLon.lon);
+            filterDonationsByDistance(recipientLatLon.lat, recipientLatLon.lon);
+        }
+
+        function updateMap(lat, lon) {
+            map.setView([lat, lon], 13);
+            if (marker) map.removeLayer(marker);
+            marker = L.marker([lat, lon]).addTo(map)
+                .bindPopup("Your Location")
+                .openPopup();
+        }
+
+        // Function to Get Coordinates of a City
+        async function getCoordinatesByCity(city) {
+            if (!city) return alert("Please enter a valid city name.");
+            try {
+                const response = await fetch(`https://nominatim.openstreetmap.org/search?city=${encodeURIComponent(city)}&format=json&limit=1`);
+                if (!response.ok) throw new Error("Failed to fetch location data.");
+
+                const data = await response.json();
+                if (data.length === 0) {
+                    return alert("City not found. Try a nearby area.");
+                }
+
+                return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
+            } catch (error) {
+                alert(error.message || "An error occurred while finding the city.");
+                return null;
+            }
+        }
+
+        // Haversine Formula to Calculate Distance
+        function getDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371.01; // Earth's radius in kilometers
+            const toRad = (value) => value * Math.PI / 180;
+
+            const dLat = toRad(lat2 - lat1);
+            const dLon = toRad(lon2 - lon1);
+            const lat1Rad = toRad(lat1);
+            const lat2Rad = toRad(lat2);
+
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            return R * c; // Distance in km
+        }
+
+        // Filter Donations Based on Distance
+        async function filterDonationsByDistance(userLat, userLon) {
+            console.log(`Recipient Coordinates: ${userLat}, ${userLon}`);
+
+            const donationItems = document.querySelectorAll(".donation-item");
+
+            for (let item of donationItems) {
+                let donorCity = item.getAttribute("data-donor-location");
+                if (!donorCity) continue;
+
+                let donorLatLon = await getCoordinatesByCity(donorCity);
+                if (!donorLatLon) continue;
+
+                let distance = getDistance(userLat, userLon, donorLatLon.lat, donorLatLon.lon);
+                console.log(`Distance from ${donorCity} → Recipient: ${distance.toFixed(2)} km`);
+
+                if (distance > 20) {
+                    console.log(`Hiding ${donorCity} (Distance: ${distance.toFixed(2)} km)`);
+                    item.style.display = "none"; // Hide donation if too far
+                } else {
+                    console.log(`Showing ${donorCity} (Distance: ${distance.toFixed(2)} km)`);
+                    item.style.display = "flex"; // Show donation if within range
+                }
+            }
+        }
+
+        document.getElementById("getLocationBtn").addEventListener("click", getUserLocation);
+        document.getElementById("showOnMapBtn").addEventListener("click", showAddressOnMap);
+    </script>
+<!-- Google Translate Script -->
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: 'en' },
+        'google_translate_widget'
+      );
+    }
+  </script>
+  <script type="text/javascript" 
+    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+  </script>
+</body>
+</html>
