@@ -356,8 +356,6 @@ app.get('/viewmore', async (req, res) => {
 //   })
 // });
 app.post("/accept-donation",async(req,res)=>{
-  const id = req.query.id;
-  res.render("recipient.ejs",{
-        id:id
-      })
+  
+  res.render("recipient.ejs")
 })
