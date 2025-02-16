@@ -50,13 +50,13 @@ app.get("/statistics", async (req, res) => {
     const id = req.query.id;
       // Fetch total donations count where status is 'Accepted'
       const totalDonationsResult = await pool.query(
-          "SELECT COUNT(*) FROM donation_info WHERE status = 'accepted'"
+          "SELECT COUNT(*) FROM donation_info WHERE status = 'Accepted'"
       );
       const totalDonations = parseInt(totalDonationsResult.rows[0].count) || 0;
 
       // Fetch total quantity of meals provided where status is 'Accepted'
       const mealsProvidedResult = await pool.query(
-          "SELECT SUM(quantity) FROM donation_info WHERE status = 'accepted'"
+          "SELECT SUM(quantity) FROM donation_info WHERE status = 'Accepted'"
       );
       const mealsProvided = parseInt(mealsProvidedResult.rows[0].sum) || 0;
 
