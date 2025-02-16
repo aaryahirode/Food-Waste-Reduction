@@ -11,39 +11,50 @@
         <div class="nav-content">
             <div class="logo">MealMatch</div>
             <div class="profile-menu">
-                <div class="profile-icon"><a href="#">👤</a></div>
-                <div class='logout'><a href="#">Log Out</a></div> 
+                <%if(locals.id){%>
+                    <div class="profile-icon"><a href="/donor-profile?id=<%= id %>">👤</a></div>
+                <%}else{%>
+                    <div class="profile-icon"><a href="/donor-profile">👤</a></div>
+                <%}%>
             </div>
         </div>
     </nav>
     <div class="container">
         <div class="sidebar">
             <ul>
-                <li><a href="/recipient">Home</a></li>
-                <li><a href="/recipient-request">Accepted Requests</a></li>
+                <%if(locals.id){%>
+                    <li><a href="/recipient?id=<%=id  %>">Home</a></li>
+                    <li><a href="/recipient-request?id=<%=id  %>">Accepted Requests</a></li>
+                <%}else{%>
+                    <li><a href="/recipient">Home</a></li>
+                    <li><a href="/recipient-request">Accepted Requests</a></li>
+                <%}%>
+             
             </ul>
         </div>
         <div class="requests-container">
-            <h2>Accepted Donations</h2>
-            <div class="request-box">
-                <img src="donation1.jpg" alt="Donation Item">
-                <div class="request-details">
-                    <h3>Fresh Fruits and Vegetables</h3>
-                    <p>Accepted from: John Doe</p>
-                    <p>Pickup Location: Downtown Food Center</p>
-                </div>
-                <div class="status-dot accepted"></div>
-            </div>
-            <div class="request-box">
-                <img src="donation2.jpg" alt="Donation Item">
-                <div class="request-details">
-                    <h3>Packaged Meals</h3>
-                    <p>Accepted from: Sarah Smith</p>
-                    <p>Pickup Location: Community Kitchen</p>
-                </div>
-                <div class="status-dot accepted"></div>
+            <div id="pending" class="donation-list">
+                <% if (datas.length>0 && locals.id) { %>
+                    <% datas.forEach((data) => { %>
+                            <div class="donation-box">
+                                <% if (data.food_image) { %>
+                                    <img class="donation-img" src="data:image/jpeg;base64,<%= data.food_image.toString('base64') %>" height="200px" alt="<%= data.food_name %>">
+                                <% } else { %>
+                                    <p>No Image Available</p>
+                                <% } %>
+                                <div class="donation-details">
+                                    <h3><%= data.food_name %></h3>
+                                    
+                                    <p>Location: <%= data.donor_location %></p>
+                                </div>
+                                <div class="status-dot pending"></div>
+                            </div>
+                        
+                    <% }) %>
+                <% } %>
             </div>
         </div>
+        
     </div>
     <script>
         // Additional interactivity if needed

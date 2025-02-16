@@ -32,16 +32,24 @@
         <div class="donation-list">
             <% if(donations.length > 0) { %>
                 <% donations.forEach(donation => { %>
-                    <% if(donation.status === "pending") { %> <!-- Only show pending donations -->
+                    <% if(donation.status === "Pending") { %> <!-- Only show pending donations -->
                         <div class="donation-item" data-donor-location="<%= donation.donor_location %>">
                             <h3><%= donation.food_name %></h3>
                             <p><b>Type:</b> <%= donation.food_type %></p>
                             <p><b>Category:</b> <%= donation.category %></p>
                             <p><b>Location:</b> <%= donation.donor_location %></p>
                             <p><b>Contact:</b> <%= donation.contact_number %></p>
-                            <a href="/viewmore/<%= donation.id %>">
-                                <button class="accept-btn">View More</button>
-                            </a>                                
+                            <% if(donation.id){ %>
+                                <a href="/viewmore?id=<%= donation.id %>">
+                                    <button class="accept-btn">View More</button>
+                                </a>
+                            <% } else { %>  <!-- Removed invalid else if -->
+                                <a href="/viewmore?id=<%= id %>">
+                                    <button class="accept-btn">View More</button>
+                                </a>
+                            <% } %>
+                            
+                                                            
                         </div>
                     <% } %>
                 <% }); %>

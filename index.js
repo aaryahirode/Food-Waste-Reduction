@@ -18,8 +18,8 @@ const port = 3000;
 const pool = new pg.Pool({
     user: "postgres",
     host: "localhost",
-    database: "food donation test",
-    password: "PostgreSQL",
+    database: "fooddonationtest",
+    password: "Venom1719",
     port: 5432,
 });
 const storage = multer.memoryStorage();
@@ -221,16 +221,23 @@ app.get("/donor-profile",async(req,res)=>{
 
 //About Us
 app.get("/about",(req,res)=>{
-    res.render("about-us.ejs") 
+    const id = req.query.id;
+    res.render("about-us.ejs",{
+      id:id
+    }) 
   })
 //Contact Us
 app.get("/contact",(req,res)=>{
-    res.render("contact.ejs");
+  const id = req.query.id;
+    res.render("contact.ejs",{
+      id:id
+    });
 })
 app.post("/contactus",async(req,res)=>{
     const name = req.body.name;
     const email = req.body.email;
     const message = req.body.message;
+    const id = req.query.id;
     const client = await pool.connect();
     try {
       await client.query("INSERT INTO contact_us_queries (name,email_id,message) VALUES ($1, $2, $3)", [name,email,message]);
@@ -241,6 +248,7 @@ app.post("/contactus",async(req,res)=>{
       client.release();
       res.render("contact.ejs",{
         submitted : "True",
+        id:id
       })
     }
   })
@@ -248,17 +256,104 @@ app.post("/contactus",async(req,res)=>{
 
   // Recipient
 app.get("/recipient",(req,res)=>{
-    res.render("recipient.ejs");
+  const id = req.query.id;
+    res.render("recipient.ejs",{
+      id:id
+    });
 })
-app.get("/recipient-request",(req,res)=>{
-    res.render("recipient-request.ejs");
-})
-app.get("/recipient-form", async (req, res) => {
+app.get("/recipient-form",async(req,res)=>{
+  const id = req.query.id;
   try {
-      const result = await pool.query("SELECT * FROM donation_info");
-      res.render("recipient-form.ejs", {donations: result.rows});
+      const client = await pool.connect();
+      const result = await pool.query("SELECT * FROM donation_info WHERE status='Pending'");
+      client.release();
+      res.render("recipient-form.ejs", { donations: result.rows, id: id });
+  }catch(error){
+    console.log(error);
+  }
+})
+
+app.get("/recipient-request", async (req, res) => {
+  const id = req.query.id;
+  try {
+    const client = await pool.connect();
+    const result = await client.query("SELECT * FROM donation_info WHERE status='Accepted'");
+    client.release();
+    
+    const datas = result.rows;  // Ensure 'datas' is defined
+    res.render("recipient-request.ejs", {
+        datas: datas,
+        id: id 
+      });
   } catch (error) {
-      console.error("Error fetching donations:", error);
-      res.status(500).send("Internal Server Error");
+    console.error("Error fetching donations:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
+
+
+
+//Recipient -> View More
+app.get('/viewmore', async (req, res) => {
+  const donationId = req.query.id;
+  try {
+    const client = await pool.connect();
+      const result = await pool.query("SELECT * FROM donation_info WHERE id = $1", [donationId]);
+
+      if (result.rows.length === 0) {
+          return res.status(404).send("Donation not found");
+      }
+      client.release();
+      const donation = result.rows[0];
+
+      res.render('viewmore',{
+        donation:donation,
+        id:donationId
+      });
+  } catch (error) {
+      console.error("Error fetching donation:", error);
+      res.render("recipient-form.ejs",{
+        id:donationId
+      });
+  }
+});
+
+
+
+
+// Route to accept a donation
+// app.post("/accept-donation", async (req, res) => {
+//   // try {
+//     const id = req.query.id;
+//   //   const client = await pool.connect();
+//   //   const userResult = await client.query("SELECT * FROM user_info WHERE id=$1", [id]);
+//   //   console.log(userResult);
+//   //   const email = userResult.rows[0].email;
+//   //   console.log(email);
+//   //   const name = userResult.rows[0].name;
+//   //   console.log(name)
+//   //   const donationResult = await client.query("SELECT * FROM donation_info WHERE email=$1",[email]);
+//   //   client.release();
+//   //     await pool.query("UPDATE donation_info SET status = 'Accepted' WHERE id = $1", [id]);
+
+//   //     res.render("/recipient.ejs",{
+//   //       id:id,
+//   //       datas:donationResult.rows,
+//   //       name:name
+//   //     });
+//   // } catch (error) {
+//   //     console.error("Error updating donation status:", error);
+//   //     res.status(500).send("Internal Server Error");
+//   // }finally{
+//   //   res.render("recipient-form.ejs",{
+//   //     id:id
+//   //   })
+//   // }
+//   res.render("recipient-form.ejs",{
+//     id:id
+//   })
+// });
+app.post("/accept-donation",async(req,res)=>{
+  
+  res.render("recipient.ejs")
+})
