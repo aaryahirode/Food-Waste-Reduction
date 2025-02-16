@@ -44,6 +44,38 @@ app.get("/",(req,res)=>{
     res.render("homepage.ejs") 
 })
 
+//Statistics
+app.get("/statistics", async (req, res) => {
+  try {
+      // Fetch total donations count where status is 'Accepted'
+      const totalDonationsResult = await pool.query(
+          "SELECT COUNT(*) FROM donation_info WHERE status = 'accepted'"
+      );
+      const totalDonations = parseInt(totalDonationsResult.rows[0].count) || 0;
+
+      // Fetch total quantity of meals provided where status is 'Accepted'
+      const mealsProvidedResult = await pool.query(
+          "SELECT SUM(quantity) FROM donation_info WHERE status = 'accepted'"
+      );
+      const mealsProvided = parseInt(mealsProvidedResult.rows[0].sum) || 0;
+
+      // Calculate people helped
+      const peopleHelped = Math.floor(mealsProvided / 4.3);
+
+      // Pass data to the template
+      res.render("statistics.ejs", {
+          totalDonations,
+          mealsProvided,
+          peopleHelped
+      });
+
+  } catch (error) {
+      console.error("Error fetching statistics:", error);
+      res.status(500).send("Internal Server Error");
+  }
+});
+
+
 // Signup route
 app.get("/signup",(req,res)=>{
     res.render("signup.ejs") 

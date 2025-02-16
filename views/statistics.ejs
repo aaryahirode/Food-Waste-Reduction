@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donations Summary | MealMatch</title>
+    <link rel="stylesheet" href="styles/statistics.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Curvy Navigation Bar -->
+    <nav class="navbar">
+        <div class="curve curve-top"></div>
+        <div class="nav-content">
+            <div class="logo">MealMatch</div>
+            <ul class="nav-links">
+                <li><a href="/">HOME</a></li>
+                <li><a href="/statistics">STATISTICS</a></li>
+                <li><a href="/about">ABOUT US</a></li>
+                <li><a href="/contact">CONTACT US</a></li>
+                <li><a href="/login" class="donate-btn">LOGIN/SIGNUP</a></li>
+            </ul>
+        </div>
+        <div class="curve curve-bottom"></div>
+        <div id="google_translate_widget"></div>
+    </nav>
+    
+    <section class="donation-summary">
+        <h1>Our Impact So Far</h1>
+        <div class="stats">
+            <div class="stat-box">
+                <h2 id="total-donations"><%= totalDonations %></h2>
+                <p>Total Donations</p>
+            </div>
+            <div class="stat-box">
+                <h2 id="meals-provided"><%= mealsProvided %></h2>
+                <p>Meals Provided(in Kg)</p>
+            </div>
+            <div class="stat-box">
+                <h2 id="people-helped"><%= peopleHelped %></h2>
+                <p>People Helped</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="chart-container">
+        <canvas id="donationChart"></canvas>
+    </div>
+
+    <footer class="custom-footer">
+        <div class="footer-container">
+            <!-- Newsletter Subscription -->
+            <div class="footer-newsletter">
+                <h3>Stay Updated</h3>
+                <div class="newsletter-box">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit">
+                        <img src="images/mail.jpg" alt="Subscribe">
+                    </button>
+                </div>
+            </div>
+    
+            <!-- Quick Links and Contact Info -->
+            <div class="footer-links">
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li>Email: support@foodsave.com</li>
+                    <li>Phone: +91 98765 43210</li>
+                </ul>
+            </div>
+    
+            <!-- Social Media Icons -->
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><img src="images/fb.webp" alt="Facebook"></a>
+                    <a href="#"><img src="images/x.webp" alt="Twitter"></a>
+                    <a href="#"><img src="images/ig.webp" alt="Instagram"></a>
+                    <a href="#"><img src="images/lin.webp" alt="LinkedIn"></a>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Copyright Section with Curve -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 MealMatch | All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set dynamic statistics
+        document.getElementById("total-donations").textContent = "<%= totalDonations %>";
+        document.getElementById("meals-provided").textContent = "<%= mealsProvided %>";
+        document.getElementById("people-helped").textContent = "<%= peopleHelped %>";
+
+        // Chart.js Doughnut Chart
+        const ctx = document.getElementById('donationChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Total Donations', 'Meals Provided', 'People Helped'],
+                datasets: [{
+                    label: 'Impact Statistics',
+                    data: [<%= totalDonations %>, <%= mealsProvided %>, <%= peopleHelped %>],
+                    backgroundColor: ['#4CAF50', '#81C784', '#66BB6A'],
+                    borderColor: ['#388E3C', '#2E7D32', '#1B5E20'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                { pageLanguage: 'en' },
+                'google_translate_widget'
+            );
+        }
+    </script>
+    <script type="text/javascript" 
+        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script>
+</body>
+</html>
