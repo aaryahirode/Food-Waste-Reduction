@@ -18,9 +18,9 @@ const port = 3000;
 const pool = new pg.Pool({
     user: "postgres",
     host: "localhost",
-    database: "fooddonationtest",
-    password: "Venom1719",
-    port: 5432,
+    database: "food donation test",
+    password: "PostgreSQL",
+    port: 5432
 });
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
@@ -47,6 +47,7 @@ app.get("/",(req,res)=>{
 //Statistics
 app.get("/statistics", async (req, res) => {
   try {
+    const id = req.query.id;
       // Fetch total donations count where status is 'Accepted'
       const totalDonationsResult = await pool.query(
           "SELECT COUNT(*) FROM donation_info WHERE status = 'accepted'"
@@ -66,7 +67,8 @@ app.get("/statistics", async (req, res) => {
       res.render("statistics.ejs", {
           totalDonations,
           mealsProvided,
-          peopleHelped
+          peopleHelped,
+          id:id
       });
 
   } catch (error) {
