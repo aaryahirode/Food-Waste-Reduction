@@ -126,7 +126,9 @@ app.get("/donor",(req,res)=>{
     const client = await pool.connect();
     const userResult = await client.query("SELECT * FROM user_info WHERE id=$1", [id]);
     const email = userResult.rows[0].email;
+    console.log(email);
     const name = userResult.rows[0].name;
+    console.log(name)
     const donationResult = await client.query("SELECT * FROM donation_info WHERE email=$1",[email]);
     client.release();
     res.render("donor-donations.ejs",{
@@ -165,6 +167,7 @@ app.get("/donor-profile",async(req,res)=>{
     const city = req.body.city;
     const pincode = req.body.pincode;
     const description = req.body.foodDescription;
+    const id = req.query.id;
     if (!req.file) {
         return res.status(400).json({ success: false, message: 'Image is required' });
     }
@@ -175,7 +178,9 @@ app.get("/donor-profile",async(req,res)=>{
             [imageBuffer, foodName, foodType, category, quantity, expiryDate, phone, email, location, city, pincode, "Pending", description]
         );
         // res.json({ success: true, message: 'Donation added successfully', donationId: result.rows[0].id });
-        res.render("donor.ejs");
+        res.render("donor.ejs",{
+            id:id,
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: 'Error saving donation' });

@@ -15,13 +15,20 @@
                     <img src="images/donor-deafult-pic.jpg" alt="User Profile" id="profileImage" class="circle">
                 </label>
                 <input type="file" id="fileInput" style="display: none;">
+                
                 <h2><%= data.name %></h2>
                 <p><%= data.email %></p>
                 <p><%= data.role %></p>
             </div>
             <nav>
                 <ul>
-                    <li class="active"><i class="fas fa-user"></i> Profile</li>
+                    <%if(locals.id){%>
+                        <a href="/donor-profile?id=<%= id %>"><li class="active"><i class="fas fa-user"></i> Profile</li></a>
+                    <%}else{%>
+                        <a href="/donor-profile"><li class="active"><i class="fas fa-user"></i> Profile</li></a>
+                    <%}%>
+                    
+                    
                     <li><i class="fas fa-sign-out-alt"></i> Logout</li>
                 </ul>
             </nav>
