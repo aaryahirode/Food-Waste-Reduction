@@ -33,7 +33,7 @@
             <p><b>Contact:</b> <%= donation.contact_number %></p>
         </div>
 
-        <form action="/accept-donation/<%= donation.id %>" method="POST">
+        <form action="/accept-donation?id=<%=id %>" method="POST">
             <button type="submit" class="accept-btn">Accept Donation</button>
         </form>
 
